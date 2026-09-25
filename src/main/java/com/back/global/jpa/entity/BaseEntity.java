@@ -1,5 +1,6 @@
-package com.back.jpa.entity;
+package com.back.global.jpa.entity;
 
+import com.back.global.global.GlobalConfig;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 
@@ -16,5 +17,9 @@ public abstract class BaseEntity {
 
     public String getModelTypeCode() {
         return this.getClass().getSimpleName();
+    }
+
+    protected void publishEvent(Object event) {
+        GlobalConfig.getEventPublisher().publish(event);
     }
 }
