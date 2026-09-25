@@ -4,6 +4,7 @@ import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.domain.Post;
 import com.back.boundedContext.member.app.MemberFacade;
 import com.back.boundedContext.post.app.PostFacade;
+import com.back.global.rsData.RsData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
@@ -41,12 +42,12 @@ public class DataInit {
     public void makeBaseMembers() {
         if (memberFacade.count() > 0) return;
 
-        Member systemMember = memberFacade.join("system", "1234", "시스템");
-        Member holdingMember = memberFacade.join("holding", "1234", "홀딩");
-        Member adminMember = memberFacade.join("admin", "1234", "관리자");
-        Member user1Member = memberFacade.join("user1", "1234", "유저1");
-        Member user2Member = memberFacade.join("user2", "1234", "유저2");
-        Member user3Member = memberFacade.join("user3", "1234", "유저3");
+        Member systemMember = memberFacade.join("system", "1234", "시스템").getData();
+        Member holdingMember = memberFacade.join("holding", "1234", "홀딩").getData();
+        Member adminMember = memberFacade.join("admin", "1234", "관리자").getData();
+        Member user1Member = memberFacade.join("user1", "1234", "유저1").getData();
+        Member user2Member = memberFacade.join("user2", "1234", "유저2").getData();
+        Member user3Member = memberFacade.join("user3", "1234", "유저3").getData();
     }
 
     @Transactional
@@ -57,12 +58,23 @@ public class DataInit {
         Member user2Member = memberFacade.findByUsername("user2").get();
         Member user3Member = memberFacade.findByUsername("user3").get();
 
-        Post post1 = postFacade.write(user1Member, "제목1", "내용1");
-        Post post2 = postFacade.write(user1Member, "제목2", "내용2");
-        Post post3 = postFacade.write(user1Member, "제목3", "내용3");
-        Post post4 = postFacade.write(user2Member, "제목4", "내용4");
-        Post post5 = postFacade.write(user2Member, "제목5", "내용5");
-        Post post6 = postFacade.write(user3Member, "제목6", "내용6");
+        RsData<Post> post1RsData = postFacade.write(user1Member, "제목1", "내용1");
+        log.debug(post1RsData.getMsg());
+
+        RsData<Post> post2RsData = postFacade.write(user1Member, "제목2", "내용2");
+        log.debug(post2RsData.getMsg());
+
+        RsData<Post> post3RsData = postFacade.write(user1Member, "제목3", "내용3");
+        log.debug(post3RsData.getMsg());
+
+        RsData<Post> post4RsData = postFacade.write(user2Member, "제목4", "내용4");
+        log.debug(post4RsData.getMsg());
+
+        RsData<Post> post5RsData = postFacade.write(user2Member, "제목5", "내용5");
+        log.debug(post5RsData.getMsg());
+
+        RsData<Post> post6RsData = postFacade.write(user3Member, "제목6", "내용6");
+        log.debug(post6RsData.getMsg());
     }
 
     @Transactional

@@ -4,6 +4,7 @@ import com.back.boundedContext.member.domain.Member;
 import com.back.boundedContext.post.domain.Post;
 import com.back.boundedContext.post.out.PostRepository;
 import com.back.global.eventPublisher.EventPublisher;
+import com.back.global.rsData.RsData;
 import com.back.shared.post.dto.PostDto;
 import com.back.shared.post.event.PostCreatedEvent;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class PostFacade {
     }
 
     @Transactional
-    public Post write(Member author, String title, String content) {
+    public RsData<Post> write(Member author, String title, String content) {
         return postWriteUseCase.write(author, title, content);
     }
 
